@@ -13,7 +13,7 @@
 * Phân biệt và gọi tên các thành phần website (Tham khảo: [Video F8 Official](https://www.youtube.com/watch?v=b8Z5Cyod9oI)).
 
 ## III. Thực hành Code BTVN
-* **Nhiệm vụ:** Sử dụng ReactJS code lại thành phần Header, Banner, phần "Save your time to using SoftLand" và Footer.
+* **Nhiệm vụ:** Sử dụng ReactJS code lại thành phần Header, Banner và Footer.
 * **Link giao diện mẫu:** [SoftLand Theme](https://bootstrapmade.com/demo/SoftLand/)
 * **Deadline:** 20h00 ngày 17/03.
 * **Yêu cầu nộp:** Gửi kèm 1 link deploy (Vercel hoặc Github Page) và 1 link source code trên Github.
