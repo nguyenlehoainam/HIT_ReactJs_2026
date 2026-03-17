@@ -19,6 +19,6 @@
     ![alt text](./ex2.png)
 - [x] Bài 3(bonus - không bắt buộc phải làm): sử dụng useState để tạo một con chatbot ảo. Có thể clone theo mẫu sau:
     ![alt text](./ex3.png)
-- [x] Dealine: 20h ngày 17/3
+- [x] Dealine: 20h ngày 24/3
 - [x] Yêu cầu nộp link deploy(có thể là vercel hoặc github page) và link code trên github
 - [x] Lưu ý các bạn có thể chia nhánh branch trên GitHub để tránh việc khởi tạo lại dự án. Với mỗi BTVN là một nhánh riêng biệt. 
