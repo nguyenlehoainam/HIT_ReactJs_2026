@@ -1,5 +1,5 @@
 # 💻 Bài tập thực hành trên lớp - Buổi 2
-**Chủ đề: Xây dựng Danh sách Thành viên CLB với tính năng "Thả tim"**
+**Chủ đề: Xây dựng Danh sách Thành viên CLB với tính năng "Bình chọn"**
 
 ## 🎯 Mục tiêu
 - Biết cách tách Component con và truyền dữ liệu thông qua **Props**.
