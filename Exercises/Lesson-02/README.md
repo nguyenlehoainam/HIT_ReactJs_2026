@@ -10,6 +10,8 @@
 - [x] Tailwind css
 - [x] Style-components
 - [x] Css module
+- [x] Vòng đời của 1 components
+- [x] Side Effect
 
 
 #### 3. Bài tập về nhà
