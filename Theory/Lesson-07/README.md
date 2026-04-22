@@ -1,28 +1,29 @@
 # 🎯 Buổi 7: Custom Hooks - Đóng gói logic & Phân tách UI - React Router
 
-Chào mừng các bạn đến với Buổi 8! Trong buổi này, chúng ta sẽ học cách nâng cấp bản thân từ một "người thợ lắp ráp" thành một "kỹ sư thiết kế" bằng cách tự tạo ra các Hooks cho riêng mình (Custom Hooks).
+Chào mừng các bạn đến với Buổi 7! Trong buổi này, chúng ta sẽ học cách nâng cấp bản thân từ một "người thợ lắp ráp" thành một "kỹ sư thiết kế" bằng cách tự tạo ra các Hooks cho riêng mình (Custom Hooks).
 
 ---
 
 ## I. Bản chất của Custom Hook
 
-Để hiểu tại sao chúng ta cần Custom Hook, hãy tưởng tượng một **Component** trong React (ví dụ: `TrangChu.jsx` hay `GioHang.jsx`) là một **Ông Giám Đốc**. 
+Để hiểu tại sao chúng ta cần Custom Hook, hãy tưởng tượng một **Component** trong React (ví dụ: `TrangChu.jsx` hay `GioHang.jsx`) là một **Ông Giám Đốc**.
 Nhiệm vụ duy nhất và quan trọng nhất của ông Giám Đốc này là: **Giao tiếp với khách hàng** (Tức là hiển thị giao diện UI lên màn hình qua phần `return <div>`).
 
 Nhưng khi mới code, chúng ta thường bắt Giám Đốc làm mọi thứ: tự đi lấy dữ liệu (`useEffect`), tự ghi chép sổ sách (`useState`), tự kiểm tra lỗi (Validation). Hậu quả là file code dài đến 500 dòng, cực kỳ khó đọc.
 
 👉 **Custom Hook chính là dàn "Trợ lý đắc lực":**
-Thay vì để Giám đốc làm hết, ta tạo ra các cô/cậu trợ lý (Custom Hooks). Cô `useFetch` chuyên lo gọi điện lấy dữ liệu, anh `useForm` chuyên lo giấy tờ. Khi cần, Giám Đốc chỉ cần hô: *"Cô useFetch, lấy cho tôi danh sách User!"*. Mã nguồn Component sẽ lập tức ngắn gọn, sạch sẽ, chuẩn Clean Code.
+Thay vì để Giám đốc làm hết, ta tạo ra các cô/cậu trợ lý (Custom Hooks). Cô `useFetch` chuyên lo gọi điện lấy dữ liệu, anh `useForm` chuyên lo giấy tờ. Khi cần, Giám Đốc chỉ cần hô: _"Cô useFetch, lấy cho tôi danh sách User!"_. Mã nguồn Component sẽ lập tức ngắn gọn, sạch sẽ, chuẩn Clean Code.
 
 ---
 
 ## II. Sự khác biệt giữa Hàm JS bình thường và Custom Hook
 
-Nhiều bạn thắc mắc: *"Thế tạo một hàm JS bình thường là `layDuLieu()` rồi gọi ra cũng được mà?"*
+Nhiều bạn thắc mắc: _"Thế tạo một hàm JS bình thường là `layDuLieu()` rồi gọi ra cũng được mà?"_
 
 Đây là điểm khác biệt cốt lõi:
+
 - **Hàm JS bình thường (Helper function):** Chỉ biết nhận đầu vào và tính toán ra đầu ra (ví dụ: hàm format ngày tháng). Nó **KHÔNG THỂ** nhớ dữ liệu (`useState`) và **KHÔNG THỂ** biết khi nào giao diện sinh ra hay chết đi (`useEffect`).
-- **Custom Hook:** Về bản chất nó vẫn là một hàm JS, nhưng nó **CÓ ĐẶC QUYỀN** được sử dụng các "siêu năng lực" của React (được phép xài các Hook khác ở bên trong nó). 
+- **Custom Hook:** Về bản chất nó vẫn là một hàm JS, nhưng nó **CÓ ĐẶC QUYỀN** được sử dụng các "siêu năng lực" của React (được phép xài các Hook khác ở bên trong nó).
 
 ---
 
@@ -42,10 +43,12 @@ Nhiều bạn thắc mắc: *"Thế tạo một hàm JS bình thường là `lay
 ## IV. Khi nào nên và KHÔNG nên dùng Custom Hook?
 
 ### ✅ NÊN DÙNG KHI:
+
 1. **Dấu hiệu Copy-Paste:** Bạn nhận ra mình vừa bôi đen copy một đoạn `useEffect` và `useState` từ Component A sang Component B. (VD: logic click ra ngoài để đóng menu, logic cuộn trang).
-2. **Component phình to:** Khi một component vượt quá 150-200 dòng, phần logic tính toán nằm lộn xộn che khuất cả phần UI. 
+2. **Component phình to:** Khi một component vượt quá 150-200 dòng, phần logic tính toán nằm lộn xộn che khuất cả phần UI.
 
 ### ❌ KHÔNG NÊN DÙNG KHI:
+
 1. **Logic quá đơn giản:** Đừng biến một hàm tính tổng 2 số thành `useTinhTong()`. Nếu không cần dùng tới `useState` hay `useEffect`, hãy dùng hàm JS bình thường.
 2. **Muốn xài chung dữ liệu toàn cục:** Nhớ Quy tắc số 2, Custom Hook không chia sẻ state. Nếu bạn muốn thông tin User sau khi đăng nhập có mặt ở mọi nơi, hãy dùng Context API hoặc Redux (Sẽ học ở buổi sau).
 
@@ -53,13 +56,48 @@ Nhiều bạn thắc mắc: *"Thế tạo một hàm JS bình thường là `lay
 
 ## V. THỰC HÀNH: Tự tay xây dựng 3 Custom Hook phổ biến nhất
 
-### Thực hành 1: `useToggle` (Đóng gói logic đóng/mở)
+Trong React, Custom Hooks cho phép chúng ta trích xuất logic của component thành các hàm có thể tái sử dụng. Điều này giúp:
 
-Mọi tính năng Ẩn/Hiện Modal, Mở/Đóng Sidebar đều dùng chung logic bật tắt `true/false`. Ta sẽ đóng gói nó lại.
+- **DRY (Don't Repeat Yourself):** Không lặp lại code.
+- **Clean Code:** Component chỉ tập trung vào việc hiển thị giao diện (UI).
+- **Dễ bảo trì:** Sửa logic ở một nơi, áp dụng cho toàn bộ dự án.
 
-**File: `src/hooks/useToggle.js`**
+---
+
+## Thực hành 1: useToggle (Đóng gói logic đóng/mở)
+
+### ❌ Cách truyền thống (Không dùng Hook)
+
+Bạn phải tự quản lý state và viết hàm đảo ngược thủ công cho mỗi thành phần.
+
+```jsx
+import { useState } from "react";
+
+export default function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  // Phải viết lại logic đảo ngược (prev => !prev) cho từng state
+  const toggleModal = () => setIsModalOpen((prev) => !prev);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+
+  return (
+    <div>
+      <button onClick={toggleSidebar}>Mở Sidebar</button>
+      <button onClick={toggleModal}>Mở Modal</button>
+
+      {isModalOpen && <p>Nội dung Modal đây!</p>}
+    </div>
+  );
+}
+```
+
+### ✅ Dùng Custom Hook `useToggle`
+
+Tách logic vào file riêng: `src/hooks/useToggle.js`
+
 ```javascript
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function useToggle(initialValue = false) {
   const [value, setValue] = useState(initialValue);
@@ -74,8 +112,9 @@ export default function useToggle(initialValue = false) {
 ```
 
 **Sử dụng trong Component:**
+
 ```jsx
-import useToggle from './hooks/useToggle';
+import useToggle from "./hooks/useToggle";
 
 export default function App() {
   // Rất gọn gàng!
@@ -86,7 +125,7 @@ export default function App() {
     <div>
       <button onClick={toggleSidebar}>Mở Sidebar</button>
       <button onClick={toggleModal}>Mở Modal</button>
-      
+
       {isModalOpen && <p>Nội dung Modal đây!</p>}
     </div>
   );
@@ -95,13 +134,59 @@ export default function App() {
 
 ---
 
-### Thực hành 2: `useFetch` (Đóng gói logic gọi API)
+## Thực hành 2: useFetch (Đóng gói logic gọi API)
 
-Thay vì đi đâu cũng phải viết lại bộ 3 state: `data`, `loading`, `error` và khối `useEffect` dài ngoằng, ta giao hết cho "cô trợ lý" `useFetch`.
+### ❌ Cách truyền thống (Không dùng Hook)
 
-**File: `src/hooks/useFetch.js`**
+Component bị "rác" bởi các biến state quản lý loading/error và khối `useEffect` cồng kềnh.
+
+```jsx
+import { useState, useEffect } from "react";
+
+export default function UserList() {
+  // Phải tự khai báo lại bộ 3 state trong mọi component cần gọi API
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "[https://jsonplaceholder.typicode.com/users](https://jsonplaceholder.typicode.com/users)",
+        );
+        if (!response.ok) throw new Error("Lỗi mạng!");
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Đang tải...</p>;
+  if (error) return <p>Lỗi: {error}</p>;
+
+  return (
+    <ul>
+      {data?.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### ✅ Dùng Custom Hook `useFetch`
+
+Tách logic vào file riêng: `src/hooks/useFetch.js`
+
 ```javascript
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export default function useFetch(url) {
   const [data, setData] = useState(null);
@@ -131,72 +216,38 @@ export default function useFetch(url) {
 ```
 
 **Sử dụng trong Component:**
+
 ```jsx
-import useFetch from './hooks/useFetch';
+import useFetch from "./hooks/useFetch";
 
 export default function UserList() {
   // Code UI bây giờ sạch bong, không còn dấu vết của fetch()
-  const { data, loading, error } = useFetch('[https://jsonplaceholder.typicode.com/users](https://jsonplaceholder.typicode.com/users)');
+  const { data, loading, error } = useFetch(
+    "[https://jsonplaceholder.typicode.com/users](https://jsonplaceholder.typicode.com/users)",
+  );
 
   if (loading) return <p>Đang tải...</p>;
   if (error) return <p>Lỗi: {error}</p>;
 
-  return <ul>{data.map(u => <li key={u.id}>{u.name}</li>)}</ul>;
+  return (
+    <ul>
+      {data.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
 }
 ```
 
 ---
 
-### Thực hành 3: `useLocalStorage` (Đóng gói lưu trữ bộ nhớ)
+### Tổng kết so sánh
 
-Dùng để làm Dark Mode hoặc giỏ hàng. Hook này đảm bảo khi F5 lại trang web, dữ liệu vẫn được lấy ra từ ổ cứng trình duyệt.
-
-**File: `src/hooks/useLocalStorage.js`**
-```javascript
-import { useState } from "react";
-
-export default function useLocalStorage(key, initialValue) {
-  // Khởi tạo state bằng cách đọc từ LocalStorage
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      return initialValue;
-    }
-  });
-
-  // Hàm cập nhật state đồng thời lưu đè vào LocalStorage
-  const setValue = (value) => {
-    try {
-      setStoredValue(value);
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return [storedValue, setValue];
-}
-```
-
-**Sử dụng trong Component:**
-```jsx
-import useLocalStorage from './hooks/useLocalStorage';
-
-export default function ThemeSwitcher() {
-  // Hoạt động y hệt useState, nhưng F5 không bị mất giá trị!
-  const [theme, setTheme] = useLocalStorage('app-theme', 'light');
-
-  return (
-    <div style={{ background: theme === 'dark' ? '#333' : '#fff' }}>
-      <h1>Giao diện đang là: {theme}</h1>
-      <button onClick={() => setTheme('dark')}>Dark Mode</button>
-      <button onClick={() => setTheme('light')}>Light Mode</button>
-    </div>
-  );
-}
-```
+| Tiêu chí              | Viết gộp (Không dùng Hook)                           | Dùng Custom Hook                                   |
+| :-------------------- | :--------------------------------------------------- | :------------------------------------------------- |
+| **Logic (Code)**      | Dài, cồng kềnh, bị lặp lại ở nhiều Component.        | Ngắn gọn, đóng gói một lần, dùng mọi nơi.          |
+| **Độ sạch của UI**    | Thấp (Logic xử lý data trộn lẫn với code render UI). | Cao (Component chỉ tập trung chứa JSX).            |
+| **Bảo trì & Mở rộng** | Khó (Phải sửa ở tất cả các file nếu có thay đổi).    | Dễ (Chỉ cần sửa một lần duy nhất trong file hook). |
 
 # 📘 React Router (v6+) - Từ Cơ Bản Đến Nâng Cao
 
@@ -207,15 +258,19 @@ Chào mừng bạn đến với lộ trình học **React Router**. Tài liệu 
 ## 🚀 I. Tổng Quan & Tư Duy SPA
 
 ### 1. Tại sao cần React Router?
-Trong web truyền thống (Multi-Page App), mỗi khi chuyển trang, trình duyệt sẽ tải lại toàn bộ (chớp trắng màn hình). 
+
+Trong web truyền thống (Multi-Page App), mỗi khi chuyển trang, trình duyệt sẽ tải lại toàn bộ (chớp trắng màn hình).
 
 Với **React Router**:
-* **Không tải lại trang:** Chỉ có các Component cần thiết được thay đổi.
-* **Tốc độ:** Trải nghiệm người dùng cực kỳ mượt mà.
-* **Đồng bộ URL:** Đảm bảo thanh địa chỉ trình duyệt luôn khớp với nội dung đang hiển thị.
+
+- **Không tải lại trang:** Chỉ có các Component cần thiết được thay đổi.
+- **Tốc độ:** Trải nghiệm người dùng cực kỳ mượt mà.
+- **Đồng bộ URL:** Đảm bảo thanh địa chỉ trình duyệt luôn khớp với nội dung đang hiển thị.
 
 ### 2. Cài đặt
+
 Mở terminal tại thư mục dự án và chạy:
+
 ```bash
 npm install react-router-dom
 ```
@@ -225,35 +280,39 @@ npm install react-router-dom
 ## 🏗️ II. Thiết Lập Cấu Trúc Cơ Bản
 
 ### 1. Kích hoạt Router (`main.jsx`)
+
 Bạn cần bọc ứng dụng trong `<BrowserRouter>` để kích hoạt khả năng điều hướng.
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <App />
-  </BrowserRouter>
+  </BrowserRouter>,
 );
 ```
 
 ### 2. Định nghĩa sơ đồ Route (`App.jsx`)
+
 Sử dụng thẻ `<Routes>` và `<Route>` để ánh xạ địa chỉ URL với Component.
 
 ```jsx
-import { Routes, Route, NavLink } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
+import { Routes, Route, NavLink } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
 function App() {
   return (
     <div>
       {/* Thanh Menu sử dụng NavLink để tự động thêm class 'active' */}
       <nav className="navbar">
-        <NavLink to="/" end>Trang Chủ</NavLink>
+        <NavLink to="/" end>
+          Trang Chủ
+        </NavLink>
         <NavLink to="/about">Giới Thiệu</NavLink>
       </nav>
 
@@ -273,13 +332,14 @@ function App() {
 ## 🧬 III. Các Khái Niệm Nâng Cao Phải Biết
 
 ### 1. Dynamic Routes (Đường dẫn động) & `useParams`
+
 Dùng khi bạn muốn hiển thị thông tin dựa trên một ID cụ thể (Ví dụ: chi tiết sản phẩm).
 
-* **Khai báo:** `<Route path="/product/:id" element={<ProductDetail />} />`
-* **Sử dụng:**
+- **Khai báo:** `<Route path="/product/:id" element={<ProductDetail />} />`
+- **Sử dụng:**
 
 ```jsx
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 function ProductDetail() {
   const { id } = useParams(); // Lấy giá trị 'id' từ thanh URL
@@ -288,6 +348,7 @@ function ProductDetail() {
 ```
 
 ### 2. Nested Routes & `<Outlet />` (Định tuyến lồng nhau)
+
 Dùng để tạo Layout chung (như Dashboard có Sidebar cố định, chỉ thay đổi nội dung bên phải).
 
 ```jsx
@@ -295,10 +356,10 @@ Dùng để tạo Layout chung (như Dashboard có Sidebar cố định, chỉ t
 <Route path="/admin" element={<AdminLayout />}>
   <Route path="users" element={<UserList />} />
   <Route path="settings" element={<Settings />} />
-</Route>
+</Route>;
 
 // AdminLayout.jsx
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
 const AdminLayout = () => (
   <div className="layout">
@@ -311,10 +372,11 @@ const AdminLayout = () => (
 ```
 
 ### 3. Điều hướng bằng Code với `useNavigate`
+
 Dùng khi bạn muốn chuyển trang tự động sau một hành động (như sau khi bấm nút Đặt hàng).
 
 ```jsx
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function OrderButton() {
   const navigate = useNavigate();
@@ -322,7 +384,7 @@ function OrderButton() {
   const handleOrder = () => {
     // Xử lý logic...
     alert("Đặt hàng thành công!");
-    navigate('/thanks'); // Chuyển sang trang cám ơn
+    navigate("/thanks"); // Chuyển sang trang cám ơn
   };
 
   return <button onClick={handleOrder}>Mua ngay</button>;
@@ -333,17 +395,18 @@ function OrderButton() {
 
 ## 🛠️ IV. Bảng Tổng Kết Nhanh
 
-| Công cụ | Mô tả | Cách dùng chính |
-| :--- | :--- | :--- |
-| **`BrowserRouter`** | Bộ não quản lý lịch sử | Bọc ngoài cùng `App`. |
-| **`Link` / `NavLink`** | Thay thế thẻ `<a>` | Điều hướng giữa các trang. |
-| **`useParams`** | Hook lấy tham số URL | Lấy ID sản phẩm, slug bài viết. |
-| **`useNavigate`** | Hook chuyển hướng | Dùng trong hàm xử lý logic. |
-| **`Outlet`** | Vị trí hiển thị Route con | Làm Layout (Header/Footer chung). |
+| Công cụ                | Mô tả                     | Cách dùng chính                   |
+| :--------------------- | :------------------------ | :-------------------------------- |
+| **`BrowserRouter`**    | Bộ não quản lý lịch sử    | Bọc ngoài cùng `App`.             |
+| **`Link` / `NavLink`** | Thay thế thẻ `<a>`        | Điều hướng giữa các trang.        |
+| **`useParams`**        | Hook lấy tham số URL      | Lấy ID sản phẩm, slug bài viết.   |
+| **`useNavigate`**      | Hook chuyển hướng         | Dùng trong hàm xử lý logic.       |
+| **`Outlet`**           | Vị trí hiển thị Route con | Làm Layout (Header/Footer chung). |
 
 ---
 
 ## 💡 Mẹo nhỏ cho người mới
+
 1. **Dùng `NavLink` cho Menu:** Nó giúp bạn dễ dàng làm nổi bật link đang được chọn (active) bằng CSS.
 2. **Luôn có Route `*`:** Điều này giúp bắt các URL sai và hiển thị trang 404 thay vì để màn hình trắng.
 3. **Thứ tự Route:** React Router v6 rất thông minh, nó sẽ tự chọn Route khớp nhất thay vì chỉ chọn cái đầu tiên nó thấy.
