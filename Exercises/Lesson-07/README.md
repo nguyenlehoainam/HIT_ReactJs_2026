@@ -1,4 +1,4 @@
-# 💻 Bài Tập Thực Hành: Ứng Dụng "Danh Bạ Người Dùng" (15 - 20 Phút)
+# 💻 Bài Tập Thực Hành: Ứng Dụng "Danh Bạ Người Dùng" 
 
 **Mục tiêu:** Áp dụng Custom Hook `useFetch` để lấy dữ liệu và thiết lập hệ thống định tuyến (Routing) cơ bản với Layout, Dynamic Route.
 
