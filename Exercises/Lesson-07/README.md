@@ -19,7 +19,7 @@ _API sử dụng:_
 
 ---
 
-## 🛠️ Hướng Dẫn Từng Bước (Gợi ý cho học viên)
+## 🛠️ Hướng Dẫn Từng Bước (Gợi ý)
 
 ### Bước 1: Chuẩn bị Custom Hook
 
