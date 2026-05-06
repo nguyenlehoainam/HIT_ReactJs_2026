@@ -144,7 +144,7 @@ Khi làm dự án thực tế (Ví dụ: Tính năng Đăng nhập - Auth User),
 
 ### Thực hành: Xây dựng AuthProvider dùng chung toàn App
 
-**1. Tạo file `src/contexts/AuthContext.jsx`**
+**1. Tạo file `src/Store/AuthContext.jsx`**
 
 ```jsx
 import { createContext, useReducer } from "react";
@@ -182,7 +182,7 @@ export const AuthProvider = ({ children }) => {
 **2. Gắn Provider vào gốc rễ dự án (VD: `main.jsx` hoặc `App.jsx`)**
 
 ```jsx
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./Store/AuthContext";
 
 export default function App() {
   return (
@@ -199,7 +199,7 @@ export default function App() {
 ```jsx
 // src/components/Navbar.jsx
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../Store/AuthContext";
 
 export default function Navbar() {
   const { state, dispatch } = useContext(AuthContext);
