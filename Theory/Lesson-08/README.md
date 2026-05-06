@@ -1,6 +1,6 @@
 # 🎯 Buổi 8: Quản lý State toàn cục (Global State) với useContext & useReducer
 
-Chào mừng các bạn đến với Buổi 10! Khi dự án của bạn lớn lên, việc truyền dữ liệu qua lại giữa các Component bằng `props` sẽ trở thành một "cơn ác mộng". Hôm nay, chúng ta sẽ học cách tạo ra một "kho chứa dữ liệu dùng chung" cho toàn bộ ứng dụng.
+Chào mừng các bạn đến với Buổi 8! Khi dự án của bạn lớn lên, việc truyền dữ liệu qua lại giữa các Component bằng `props` sẽ trở thành một "cơn ác mộng". Hôm nay, chúng ta sẽ học cách tạo ra một "kho chứa dữ liệu dùng chung" cho toàn bộ ứng dụng.
 
 ---
 
