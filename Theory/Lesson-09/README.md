@@ -78,11 +78,42 @@ yarn add redux react-redux
 
 **B3: Fix file main**
 
-![Fix file main](./images/10.png)
+![Fix file main](./images/11.png)
 
-*(Lưu ý: Ảnh số 10 bạn gửi chứa cả phần code của `index.js` và `main.jsx` nên mình dùng chung ảnh `10.png` cho cả 2 mục này nhé).*
 
 **B4: Fix file App**
+
+Trong component `App`, chúng ta sẽ sử dụng hook `useSelector` để lấy state từ store và `useDispatch` để gửi action đi.
+
+```jsx
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementCounter, decrementCounter } from './store/action';
+
+function App() {
+  // Lấy giá trị count từ Redux Store
+  const count = useSelector(state => state.count);
+  
+  // Khởi tạo dispatch để gửi action
+  const dispatch = useDispatch();
+
+  return (
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1>Redux Core Counter</h1>
+      <h2>Giá trị hiện tại: {count}</h2>
+      
+      <button onClick={() => dispatch(incrementCounter())} style={{ margin: '10px' }}>
+        Tăng (Increment)
+      </button>
+      <button onClick={() => dispatch(decrementCounter())} style={{ margin: '10px' }}>
+        Giảm (Decrement)
+      </button>
+    </div>
+  );
+}
+
+export default App;
+```
 
 ---
 
