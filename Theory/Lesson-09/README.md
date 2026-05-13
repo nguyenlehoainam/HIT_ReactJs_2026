@@ -1,5 +1,92 @@
-# Lý thuyết Redux Toolkit (RTK) - Redux Hiện đại
+# REDUX CORE
 
+## 1. Why
+**Vấn đề:** Tưởng tượng bạn đang viết một ứng dụng quản lý phim có tính năng đăng nhập và xem danh sách các phim. Các component được tổ chức như sau:
+
+- `MoviesList`: Hiển thị danh sách các phim, bao gồm 1 list các component `Movie`
+- `Movie`: là 1 item trong `MoviesList`, hiển thị thông tin một phim
+- `Login`: chức năng đăng nhập
+
+![Cấu trúc component cơ bản](./images/1.png)
+
+Ta có data là danh sách thông tin các phim, khi đó data được chuyển đổi qua lại giữa các component trong ứng dụng như thế nào? Theo kiến thức cơ bản đã được học, ta có thể để data là state trong `MoviesList`, rồi truyền data xuống component `Movie` dưới dạng props.
+
+![Truyền data bằng props](./images/2.png)
+
+Cách này ổn cho đến khi ta thêm 1 component mới, ví dụ như `Search`, để search các phim, và nó cũng sử dụng data. Vì là 1 component riêng, ta không thể truyền data từ component `MovieList` sang bằng props được.
+
+![Không thể truyền data cho component ngang hàng](./images/3.png)
+
+Lúc này ta buộc phải đưa data lên component ở trên nữa là `App` mới có thể truyền data xuống `Search` component. Dễ thấy theo mô hình này, khi ứng dụng mở rộng thêm các loại data khác, tất cả sẽ được đưa vào `App` và các hàm xử lý data cũng phải định nghĩa ở `App`, khiến `App` component trở nên khổng lồ với vô vàn trách nhiệm. Bad design!
+
+![App component trở nên cồng kềnh](./images/4.png)
+
+**Giải pháp:** Với Redux, ta đưa tất cả data, các state vào 1 nơi gọi là **store**, khi component nào cần dùng hoặc thay đổi data, nó sẽ lấy hoặc cập nhật data ở store. Các data trong các component là thống nhất với nhau vì store là toàn cục trong toàn bộ App.
+
+![Redux Store](./images/5.png)
+
+## 2. What
+- Redux là một pattern (khuôn mẫu).
+- Là một thư viện JS dùng để quản lý và cập nhập state của ứng dụng.
+
+## 3. When
+Redux sẽ rất hữu dụng đối với các trường hợp sau đây:
+- Dự án có số lượng lớn state và các state được sử dụng ở nhiều nơi.
+- State được cập nhập thường xuyên.
+- Logic code cập nhập state phức tạp.
+- Ứng dụng có số lượng code trung bình hoặc lớn và có nhiều người làm chung.
+- Cần debug và muốn xem cách state được cập nhật tại bất kỳ khoảng thời gian nào.
+
+## 4. How
+Cơ chế hoạt động của nó được tóm gọn trong 1 sơ đồ đơn giản:
+
+![Sơ đồ Redux Flow](./images/6.png)
+
+Các thành phần của Redux bao gồm:
+- **Store**: Store đơn giản là 1 object chứa tất cả state toàn cục của ứng dụng. Nhưng thay vì lưu các state, nó lưu các reducer.
+- **Các Action**: Khi ta định nghĩa các action, ta khai báo các tên của hành động trong ứng dụng. Lấy ví dụ ta có 1 state là `counter` và cần 2 phương thức để tăng và giảm giá trị của `counter`. Lúc này ta định nghĩa 2 action có tên là 'INCREMENT' và 'DECREMENT' và chỉ vậy thôi, việc xử lý thay đổi state của `counter` sẽ nhường cho reducer.
+- **Các Reducer**: 1 reducer tương đương với 1 state nhưng kèm theo các mô tả state sẽ thay đổi như thế nào khi các action khác nhau được gọi. Trong ví dụ ta có reducer là `counter`, nó lưu state của `counter` và kiểm tra action vừa được gọi là INCREMENT hay DECREMENT và trả về state mới là state+1 hay state-1 tương ứng.
+- **Các Dispatch**: Khi cần dùng 1 action ở component, ta gọi action đó đơn giản bằng cách sử dụng phương thức `dispatch`. VD: `dispatch(increment())`, `dispatch(decrement())`.
+
+**Các bước dùng redux truyền thống:**
+**B1: Cài đặt**
+```bash
+# NPM
+npm install redux react-redux
+
+# Yarn
+yarn add redux react-redux
+```
+
+**B2: Tạo một thư mục store và các file liên quan**
+
+- File `type.js`
+
+![File type.js](./images/7.png)
+
+- File `action.js`
+
+![File action.js](./images/8.png)
+
+- File `reducer.js`
+
+![File reducer.js](./images/9.png)
+
+- File `index.js`
+
+![File index.js](./images/10.png)
+
+**B3: Fix file main**
+
+![Fix file main](./images/10.png)
+
+*(Lưu ý: Ảnh số 10 bạn gửi chứa cả phần code của `index.js` và `main.jsx` nên mình dùng chung ảnh `10.png` cho cả 2 mục này nhé).*
+
+**B4: Fix file App**
+
+---
+
+# Lý thuyết Redux Toolkit (RTK) - Redux Hiện đại
 ## 🎯 Tổng quan
 
 Redux Toolkit (RTK) là bộ công cụ chính thức để viết logic Redux một cách hiệu quả. RTK được thiết kế để giải quyết các vấn đề phổ biến của Redux truyền thống:
